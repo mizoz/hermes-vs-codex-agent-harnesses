@@ -1,24 +1,19 @@
 # Abstract
 
-This paper compares two practical harness patterns for agentic software work:
-Hermes operator-fleet, a queue-backed multi-worker launcher, and Codex-native
-lane running, which uses Codex CLI/app capabilities directly. The case study
-suggests that the decisive performance variable is not simply model capability.
-For multi-lane operational work, the paper argues that the control surface around
-the model matters:
-task contracts, explicit approval boundaries, worktree isolation, model-role
-profiles, durable receipts, queue state, watcher processes, and failure
-classification.
+This paper argues that the practical performance of agentic software work is
+not determined by model capability alone. In an observed private operational
+wave, Hermes operator-fleet felt more effective for messy parallel work because
+it exposed a clearer operational control plane: lanes, task state, acceptance
+criteria, approval boundaries, receipts, watcher loops, and terminal status.
 
-In the motivating case study, Hermes operator-fleet exposed more explicit
-operational scaffolding for parallel, auditable work. Codex provides documented
-first-party execution primitives: CLI, subagents, sandbox controls, worktrees,
-local tools, and non-interactive execution. The highest-leverage path
-is therefore not to choose one as a universal winner, but to test a Codex-native
-lane runner that adopts Hermes-style queue discipline while adding stronger
-heartbeat, timeout, provenance, benchmark, and cross-machine scheduling controls.
+Codex already provides documented first-party execution primitives including
+CLI execution, non-interactive execution, sandbox and approval controls,
+subagents, worktrees, tools, and code editing. The missing layer is durable
+multi-worker process control around those primitives.
 
-The paper proposes a paired benchmark framework using synthetic workloads,
-queueing-theoretic throughput metrics, reliability and auditability scores, and
-human-review cost. It also defines public-release boundaries so private
-operational systems are not exposed in the evaluation.
+The proposed next architecture is a Codex-native lane runner: Codex execution
+wrapped in queue state, task leases, workspace allocation, provenance manifests,
+heartbeats, timeouts, stale-worker detection, final receipts, and operator
+review packets. The paper separates case-study observation from proposed
+benchmark design and defines public-data boundaries for evaluating the harness
+using synthetic or sanitized fixtures.

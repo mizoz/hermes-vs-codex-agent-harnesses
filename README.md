@@ -1,7 +1,7 @@
-# Hermes vs Codex Agent Harnesses
+# Agent Harnesses as Operational Control Systems
 
-This repository contains a public white paper package comparing two ways of
-running agentic software work:
+This repository contains a public white paper package about agent harnesses as
+operational control systems.
 
 - Hermes operator-fleet: a queue-backed, profile-based, multi-worker harness
   that launches bounded agent workers through local task state.
@@ -10,10 +10,10 @@ running agentic software work:
   queue controller.
 
 The core claim is narrow: model quality alone does not explain operator
-throughput. A harness that captures task scope, leases, receipts, model roles,
-approval boundaries, and failure state can reduce coordination overhead in
-multi-lane operational work. Quantitative superiority claims require the paired
-benchmark described in this repository.
+throughput. A harness that captures lanes, task state, leases, approval
+boundaries, receipts, provenance, liveness, and review packets can reduce
+coordination overhead in multi-lane operational work. Quantitative superiority
+claims require the paired benchmark described in this repository.
 
 ## Public Links
 

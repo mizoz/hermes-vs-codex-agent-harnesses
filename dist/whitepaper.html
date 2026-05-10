@@ -163,6 +163,70 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
 <style>
 @page {
@@ -238,468 +302,528 @@ th {
 <body>
 <header id="title-block-header">
 <h1 class="title">Agent Harnesses as Operational Control Systems</h1>
-<p class="subtitle">A Comparative Study of Hermes Operator-Fleet and
-Codex-Native Lane Running</p>
+<p class="subtitle">Why Codex needs a durable lane runner for serious
+parallel work</p>
 <p class="author">Ahmed</p>
 <p class="date">Draft: 2026-05-10</p>
 </header>
 <h2 id="executive-summary">Executive Summary</h2>
 <p>The practical difference between Hermes and Codex in the observed
-operating environment is not explained by model choice alone. Hermes
-wraps agent calls in an operational harness: named lanes, profiles, task
-state, worktrees, acceptance criteria, approval boundaries, final
-receipts, and watcher loops.</p>
-<p>That harness gives Hermes a clearer control plane for messy parallel
-work. A single interactive Codex session can reason deeply and edit
-effectively, but it does not by default create a durable queue of
-bounded workers with receipts and status that survive the user’s
-attention moving elsewhere. Codex has the raw primitives to do this: the
-CLI can run locally and inspect, edit, and execute commands; Codex
-supports subagents for parallel work; Codex sandboxes constrain command
-execution; and Codex app worktrees support independent background tasks
-without disturbing a local checkout.</p>
-<p>The case-study conclusion is a harness conclusion:</p>
-<blockquote>
-<p>In the observed workflow, Hermes exposed the more explicit local
-fleet wrapper. Codex exposed documented first-party execution
-primitives. The strongest hypothesis to test is a Codex-native lane
-runner that copies the useful Hermes-style control-plane ideas while
-adding stronger heartbeat, timeout, provenance, benchmark, and
-cross-machine scheduling controls.</p>
-</blockquote>
-<h2 id="problem-statement">Problem Statement</h2>
-<p>Agentic software work has shifted from one prompt/one answer toward
-delegated workflows: research lanes, implementation lanes, review lanes,
-safety lanes, and operator lanes. In that setting, a user does not
-merely need a capable model. The user needs a harness that answers:</p>
+environment was not mainly model quality. It was harness quality.</p>
+<p>Hermes felt more effective for messy parallel work because it made
+the work inspectable: lanes, task state, acceptance criteria, approval
+boundaries, receipts, watcher loops, and terminal status were all
+visible to the operator. Codex has strong first-party execution
+primitives: local CLI execution, non-interactive execution, sandbox and
+approval controls, subagents, worktrees, tools, and code editing. Those
+primitives are powerful, but they do not automatically become durable
+multi-worker process control.</p>
+<p>The gap is not intelligence. The gap is operational control.</p>
+<p>The obvious next build is a Codex-native lane runner: Codex execution
+wrapped in a durable queue, leases, workspace allocation, provenance
+manifests, heartbeats, timeouts, stale-worker detection, final receipts,
+and review packets.</p>
+<p>This paper is based on case-study observation from a private
+operational wave. It is not a controlled benchmark result. The benchmark
+proposed here should run only on synthetic or sanitized fixtures before
+any superiority claim is made.</p>
+<h2 id="the-problem-capable-agents-are-not-enough">The Problem: Capable
+Agents Are Not Enough</h2>
+<p>A single capable agent can be useful in a conversation. Parallel
+agents create a different problem.</p>
+<p>Once work splits into multiple lanes, the operator needs more than
+answers. The operator needs operational state:</p>
 <ul>
-<li>What work is running?</li>
-<li>Which worker owns it?</li>
-<li>What model and permissions does it have?</li>
-<li>What is it allowed to change?</li>
+<li>What is running?</li>
+<li>Who owns it?</li>
+<li>What can it touch?</li>
 <li>What evidence did it inspect?</li>
 <li>What did it produce?</li>
 <li>What failed?</li>
-<li>What needs human approval?</li>
+<li>What is waiting for approval?</li>
+<li>What is stale or silent?</li>
 </ul>
-<p>Without this layer, parallel agents become a source of cognitive
-load. With this layer, they become an inspectable production system.</p>
-<h2 id="related-work">Related Work</h2>
-<p>The comparison sits at the intersection of multi-agent systems,
-workflow management, human-automation interaction, and software
-reliability.</p>
-<p>Classical agent research defines agents by autonomy, reactivity,
-proactiveness, and social ability, while multi-agent systems add
-coordination and distributed decision-making concerns.<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a
-href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> Modern LLM-agent systems revive the
-same coordination problem with tool use and language-based delegation;
-ReAct introduced a practical reasoning/action loop for language models,
-and AutoGen framed multi-agent LLM applications as configurable
-conversations among agents, tools, and humans.<a href="#fn3"
+<p>A powerful agent without operational state becomes another thing the
+operator has to remember.</p>
+<p>That is the core systems problem. Parallelism only helps when the
+work is bounded, observable, reviewable, and recoverable. Without that
+control layer, more agents can increase cognitive load instead of
+throughput.</p>
+<p>An agent harness is the control layer around agent execution. It
+turns a request into bounded tasks, assigns workers, constrains
+permissions, captures evidence, records state transitions, and produces
+reviewable artifacts. A good harness does not make the model smarter. It
+makes the work safer to delegate.</p>
+<h2 id="the-case-study-hermes-vs-codex-in-parallel-work">The Case Study:
+Hermes vs Codex in Parallel Work</h2>
+<p>The motivating observation was a private operational wave with
+several lanes running in parallel. The wave was not a scientific
+benchmark. It was a live operator experience: decompose a messy goal,
+launch bounded workers, wait for receipts, synthesize outputs, and
+decide what to do next.</p>
+<p>In that setting, Hermes and Codex felt different.</p>
+<p>Hermes externalized coordination. It created named lanes, task
+records, profiles, bounded prompts, receipts, watcher status, and
+terminal states. The operator could see the shape of the work instead of
+keeping it all in memory.</p>
+<p>Codex was the stronger direct execution surface. It could inspect
+files, edit code, run commands, use tools, reason deeply, and delegate
+to subagents. Codex also has documented support for CLI execution,
+non-interactive execution, sandboxing, subagents, and app worktrees.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3"
 class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a><a
 href="#fn4" class="footnote-ref" id="fnref4"
 role="doc-noteref"><sup>4</sup></a></p>
-<p>Workflow research matters because an agent harness is effectively a
-workflow engine for uncertain work. The workflow-patterns literature
-gives a vocabulary for splits, joins, cancellation, state, and exception
-handling.<a href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a> Human-automation research matters
-because the human operator still owns approval, trust calibration, and
-intervention; levels of automation and situation awareness research
-explain why the system must expose state, uncertainty, and override
-points instead of hiding work inside a black box.<a href="#fn6"
-class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a><a
-href="#fn7" class="footnote-ref" id="fnref7"
-role="doc-noteref"><sup>7</sup></a></p>
-<p>Software engineering research also warns that coordination overhead
-is not incidental. Coordination in software development and
-socio-technical congruence both show that work dependencies and
-communication structures shape performance, not merely individual worker
-skill.<a href="#fn8" class="footnote-ref" id="fnref8"
-role="doc-noteref"><sup>8</sup></a><a href="#fn9" class="footnote-ref"
-id="fnref9" role="doc-noteref"><sup>9</sup></a> Agent fleets face the
-same constraint: parallelism helps only when the harness aligns
-communication, state, artifacts, and dependencies.</p>
-<h2 id="systems-compared">Systems Compared</h2>
-<h3 id="hermes-operator-fleet">Hermes Operator-Fleet</h3>
-<p>Hermes operator-fleet is a repo-backed local fallback launcher
-observed in the case-study environment. Internal source inspection
-describes the goal as bounded work, isolated git worktrees for coding
-tasks, and fan-out across multiple agent profiles. Because this internal
-source is not included as a public artifact, these details should be
-treated as case-study observations rather than independently
-reproducible public evidence.</p>
-<p>The inspected design used task state, profile configuration, run
-receipts, and a generated status surface. A public reproduction should
-include sanitized equivalent manifests before claiming reproducible
-implementation details. This package includes a sanitized evidence
-appendix with representative task, profile, receipt, and status records,
-stripped of private paths, model labels, operational vendors, host
-details, and local security posture.</p>
-<p>Observed implementation features, stated at the public-safe
-level:</p>
+<p>The lesson was not “Hermes is better” or “Codex is worse.” The lesson
+was more specific:</p>
+<blockquote>
+<p>Codex has strong execution primitives. Hermes exposed stronger
+process-control semantics in the observed workflow.</p>
+</blockquote>
+<p>That is the design opportunity.</p>
+<h2 id="what-hermes-got-right">What Hermes Got Right</h2>
+<p>Hermes worked well because it behaved like a harness, not because it
+was a different kind of intelligence.</p>
+<p>The useful flow was simple:</p>
+<p><code>operator request -&gt; lane decomposition -&gt; bounded workers -&gt; receipts -&gt; watcher -&gt; synthesis</code></p>
+<p>Each step reduced ambiguity.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Harness element</th>
+<th>Why it mattered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Named lanes</td>
+<td>The operator could see work streams instead of a single blob of
+activity.</td>
+</tr>
+<tr class="even">
+<td>Profiles</td>
+<td>Different tasks could use different roles and permissions.</td>
+</tr>
+<tr class="odd">
+<td>Acceptance criteria</td>
+<td>Workers knew what “done” meant.</td>
+</tr>
+<tr class="even">
+<td>Approval boundaries</td>
+<td>Workers knew what not to touch.</td>
+</tr>
+<tr class="odd">
+<td>Isolated workspaces</td>
+<td>Coding and analysis tasks had bounded surfaces.</td>
+</tr>
+<tr class="even">
+<td>Queue state</td>
+<td>Running, done, blocked, failed, and cancelled states were
+visible.</td>
+</tr>
+<tr class="odd">
+<td>Receipts</td>
+<td>Each lane produced a final artifact the operator could review.</td>
+</tr>
+<tr class="even">
+<td>Watcher surface</td>
+<td>Terminal states could be aggregated into one synthesis.</td>
+</tr>
+</tbody>
+</table>
+<p>This is process control. Hermes turned parallel agent work into
+something closer to an operating queue.</p>
+<p>The key point is not that every Hermes implementation detail should
+be copied. The key point is that agent work needs a durable control
+plane once the operator delegates more than one task at a time.</p>
+<h2 id="what-codex-already-has">What Codex Already Has</h2>
+<p>Codex should not be treated as weak. The opposite is true: Codex
+already has many of the primitives needed to build the better
+system.</p>
+<p>The relevant primitives are:</p>
 <ul>
-<li>stable task ids generated as
-<code>op_&lt;timestamp&gt;_&lt;slug&gt;_&lt;digest&gt;</code>;</li>
-<li>task records containing title, lane, profile, repo/workdir, allowed
-writes, acceptance criteria, prompt, and approval boundary;</li>
-<li>flock-backed mutation of <code>tasks.json</code>;</li>
-<li>tmux session launch per worker;</li>
-<li>group slot files for concurrency limits;</li>
-<li>git worktree creation for Codex tasks;</li>
-<li>scratch workspaces for read-only analysis;</li>
-<li>prompt injection of approval boundary, allowed write scope,
-acceptance criteria, and operating rules;</li>
-<li><code>codex exec --output-last-message &lt;final.md&gt; --json</code>
-for Codex workers;</li>
-<li>provider-neutral sidecar envelopes for proposal-only analysis;</li>
-<li>terminal states <code>done</code>, <code>failed</code>,
-<code>blocked</code>, and <code>cancelled</code>.</li>
+<li>local CLI execution;</li>
+<li>non-interactive <code>codex exec</code>;</li>
+<li>app worktrees;</li>
+<li>subagents;</li>
+<li>sandbox and approval controls;</li>
+<li>MCP, tools, and plugins;</li>
+<li>local shell execution;</li>
+<li>code editing and verification in the workspace.</li>
 </ul>
-<h3 id="codex-native-lane-running">Codex-Native Lane Running</h3>
-<p>Codex-native lane running means using Codex directly: interactive
-CLI, non-interactive <code>codex exec</code>, app worktrees, subagents,
-sandboxing, MCP/tools, skills, plugins, and local shell execution.</p>
-<p>OpenAI’s Codex documentation states that the Codex CLI runs locally
-in the terminal and can read, change, and run code in a selected
-directory.<a href="#fn10" class="footnote-ref" id="fnref10"
-role="doc-noteref"><sup>10</sup></a> The subagent documentation says
-Codex can spawn specialized agents in parallel and collect results,
-while also noting token cost and context tradeoffs.<a href="#fn11"
-class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>
-The sandbox documentation distinguishes sandbox boundaries from approval
-policy: the sandbox constrains what spawned commands can do, while
-approvals govern when Codex must stop for confirmation.<a href="#fn12"
-class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>
-The Codex app worktree documentation describes independent worktrees for
-parallel background work.<a href="#fn13" class="footnote-ref"
-id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
-<p>In the inspected environment, Codex had local CLI execution,
-sandbox/approval controls, app integrations, parallel-work primitives,
-and native tools for shell, patching, plans, subagents, browser
-operations, and tool discovery. Exact model names, plugin inventory,
-feature flags, worker counts, host details, and local security posture
-are intentionally omitted from public artifacts.</p>
-<p>Those are strong primitives. The gap is not capability. The gap is
-durable multi-worker process control.</p>
-<h2 id="why-hermes-felt-more-efficient">Why Hermes Felt More
-Efficient</h2>
-<p>Hermes made the work feel coherent because it externalized
-coordination. A rough operator request became a set of typed lanes:</p>
-<ul>
-<li>conductor map;</li>
-<li>target-review lane;</li>
-<li>document-workflow lane;</li>
-<li>external-resource research;</li>
-<li>data-inventory lane;</li>
-<li>state-audit lane;</li>
-<li>scoring-review lane;</li>
-<li>triage lane;</li>
-<li>approval-review lane;</li>
-<li>synthesis lane.</li>
-</ul>
-<p>Each lane received an acceptance criterion and a no-go boundary.
-Outputs landed as receipts. Watchers aggregated terminal states. The
-user did not have to keep every branch of the investigation in working
-memory.</p>
-<p>From a systems perspective, Hermes converted a conversation into a
-queueing and provenance problem. That matters because provenance is the
-mechanism by which a reader can decide whether an artifact should be
-trusted; W3C PROV defines provenance as records of people, institutions,
-entities, and activities involved in producing or influencing data.<a
-href="#fn14" class="footnote-ref" id="fnref14"
-role="doc-noteref"><sup>14</sup></a></p>
-<h2 id="observed-hermes-liveness-gap">Observed Hermes Liveness Gap</h2>
-<p>The same observation also exposed a weakness: one state-audit worker
-remained running for several minutes with no terminal receipt, a blank
-terminal surface, and only the initial prompt in its run directory. It
-eventually completed and wrote a receipt, but during execution the
-conductor had no strong heartbeat signal. The system had state, but not
-enough liveness semantics.</p>
-<p>This is a classic harness problem:</p>
-<ul>
-<li>no heartbeat file;</li>
-<li>no progress event stream retained by default;</li>
-<li>no maximum wall-clock timeout for Codex workers;</li>
-<li>no stale-running transition;</li>
-<li>no automatic blocked-state conversion after silence;</li>
-<li>no structured failure reason if a child process hangs.</li>
-</ul>
-<p>In SRE terms, the system had a status surface, but not enough
-actionable monitoring. Google’s SRE guidance frames monitoring as the
-system that informs humans about conditions that should interrupt them
-and conditions that should be handled without paging.<a href="#fn15"
-class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a>
-Agent harnesses need the same distinction: a slow worker is not the same
-as a silent worker; a silent worker with no receipt should become an
-actionable blocked event.</p>
-<h2 id="codex-execution-strengths">Codex Execution Strengths</h2>
-<p>Codex exposes documented first-party execution primitives:</p>
-<ul>
-<li>it provides direct coding and command execution primitives;</li>
-<li>it has first-party subagents;</li>
-<li>it has native local tools, app/plugin integrations, and MCP;</li>
-<li>it has explicit sandbox modes and approval policies;</li>
-<li>it can run interactively or non-interactively;</li>
-<li>it can work inside git worktrees;</li>
-<li>it can use web search and official documentation when required;</li>
-<li>it can inspect and edit code directly with local verification.</li>
-</ul>
-<p>The architectural issue is not Codex capability. It is that raw
-capability does not automatically become durable multi-worker process
-control. A single Codex session is an effective execution surface;
-Hermes operator-fleet is a process control surface. The architectural
-recommendation is hybrid: Codex execution with a durable lane-runner
-harness.</p>
-<h2 id="mathematical-model">Mathematical Model</h2>
-<p>Let runner <span
-class="math inline"><em>r</em> ∈ {<em>H</em>, <em>C</em>}</span>, where
-<span class="math inline"><em>H</em></span> is Hermes operator-fleet and
-<span class="math inline"><em>C</em></span> is Codex-native lane
-running.</p>
-<p>All component scores are normalized to the interval [0, 1] before
-aggregation. Task quality is a weighted mean:</p>
-<p><code>Q = 0.35 correctness + 0.20 completeness + 0.15 evidence + 0.15 decision + 0.15 usability</code></p>
-<p>Auditability is also a weighted mean:</p>
-<p><code>A = 0.20 inputs + 0.20 steps + 0.20 artifacts + 0.20 decisions + 0.20 replay</code></p>
-<p>Safety-boundary adherence, reliability, auditability, latency, and
-cost should be reported as raw components first. An exploratory
-value-density index can then be reported as:</p>
-<p><code>VD = (Q * B * R * A) / (latency_minutes * total_cost)</code></p>
-<p>where <code>B</code> is safety-boundary adherence, <code>R</code> is
-reliability, <code>A</code> is auditability, and total cost includes
-token, compute, tool, and human-review cost. <code>VD</code> is an
-exploratory composite, not a primary endpoint, because scale choices can
-change its magnitude.</p>
-<p>For parallel execution, Amdahl’s Law bounds fixed-size speedup when a
-serial fraction remains.<a href="#fn16" class="footnote-ref"
-id="fnref16" role="doc-noteref"><sup>16</sup></a> Gustafson’s Law
-explains why scaled workloads can still benefit from additional workers
-when the parallel part grows with system capacity.<a href="#fn17"
-class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>
-Agent fleets resemble the latter only when tasks are actually
-independent. If a human conductor must serialize every decision, the
-serial fraction dominates.</p>
-<p>Let <code>c</code> be available workers, <code>lambda</code> be task
-arrival rate, and <code>mu</code> be service rate per worker. The
-utilization approximation is <code>rho = lambda / (c * mu)</code>.
-Stable operation requires <code>rho &lt; 1</code>. This queueing
-approximation assumes stationary arrivals, independent service times, no
-shared blocking resource, and a fixed worker pool; observed agent work
-violates these assumptions whenever the human conductor serializes
-approvals or reviews.</p>
-<p>The practical lesson is simple: adding workers improves throughput
-only until coordination, review, retry, and blocked-state overhead
-dominate.</p>
-<h2 id="evaluation-design">Evaluation Design</h2>
-<p>The benchmark should use paired, randomized tasks. Each task is run
-once through Hermes and once through Codex-native, using identical
-fixtures and no live system mutation.</p>
-<p>Minimum pilot: <code>N = 40</code> paired fixtures.</p>
-<p>Candidate full benchmark: <code>N = 8 x 10 x 2 = 160</code> paired
-fixtures before any power analysis.</p>
-<p>Here <code>N</code> means paired fixtures, not total runner
-executions. Each paired fixture is executed once by each runner, so the
-candidate full run has 320 runner executions. Repetition seeds are
-clustered within workload class and should not be treated as fully
-independent observations. Half should run Hermes first; half should run
-Codex first. The scoring packet should be anonymized before review by
-stripping runner names, model names, local paths, receipt formatting,
-timestamps, and other identifying surface details.</p>
-<p>The primary endpoint should be paired mean quality difference,
-<code>Delta Q = Q_C - Q_H</code>, with a stratified 95% bootstrap
-confidence interval by workload class and fixture pair. The initial
-<code>N = 40</code> run should be labeled a pilot unless a separate
-power analysis justifies stronger claims. The component score weights
-are judgmental and should be pre-registered. Raw correctness,
-completeness, evidence, decision quality, usability, auditability,
-safety-boundary adherence, review minutes, latency, and reliability
-should be reported as required companion endpoints. Weight sensitivity
-should be reported before using the composite score for public
-claims.</p>
-<p>Workload classes:</p>
+<p>Those primitives make Codex a strong execution substrate. The missing
+layer is not another prompt. It is durable operational semantics around
+the execution: queue ownership, state transitions, liveness, evidence,
+receipts, and review.</p>
+<p>Codex can run the worker. The lane runner should make the worker
+accountable.</p>
+<h2 id="the-real-gap-durable-operational-control">The Real Gap: Durable
+Operational Control</h2>
+<p>An operational control system for agent work is the layer that
+answers four questions:</p>
 <ol type="1">
-<li>public-request discovery simulation from archived public pages;</li>
-<li>record-staging simulation from synthetic CSV/SQLite;</li>
-<li>operational graduation decision from mock reply records;</li>
-<li>no-send message drafting to local text files;</li>
-<li>queue triage from JSON task state;</li>
-<li>evidence extraction from local PDFs, HTML, and screenshots;</li>
-<li>failure recovery with corrupt or ambiguous inputs;</li>
-<li>measurement/reporting from local run logs.</li>
+<li>What work exists?</li>
+<li>Who owns each unit of work right now?</li>
+<li>What is each worker allowed to do?</li>
+<li>What evidence proves what happened?</li>
 </ol>
-<p>Safety constraints:</p>
+<p>For serious parallel work, that means the harness needs:</p>
 <ul>
-<li>no live external-system writes;</li>
-<li>no live record-system writes;</li>
-<li>no message-system drafts, sends, labels, or mutation;</li>
-<li>no external contact actions;</li>
-<li>no production workflow-automation execution;</li>
-<li>no public endpoints;</li>
-<li>no paid SaaS calls unless separately approved;</li>
-<li>no destructive filesystem commands.</li>
+<li>a queue;</li>
+<li>worker ownership;</li>
+<li>leases and TTLs;</li>
+<li>explicit state transitions;</li>
+<li>allowed write scope;</li>
+<li>approval policy;</li>
+<li>evidence and provenance capture;</li>
+<li>receipt schema;</li>
+<li>retry and failure semantics;</li>
+<li>liveness monitoring;</li>
+<li>review packet generation.</li>
 </ul>
-<h2 id="proposed-refactor-codex-lane-runner">Proposed Refactor: Codex
-Lane Runner</h2>
-<p>The recommended refactor is to build a Codex-native lane runner with
-Hermes’ best ideas and stronger reliability controls.</p>
+<p>Without this layer, parallelism pushes state into the operator’s
+head. With this layer, parallelism becomes manageable because every
+worker has a contract, every contract has a receipt, and every receipt
+can be reviewed.</p>
+<p>This is also where safety boundaries become practical. “Do not mutate
+live systems” is not enough as a sentence in a prompt. It should be
+represented in task metadata, worker permissions, validation checks, and
+final receipts.</p>
+<h2 id="the-liveness-problem">The Liveness Problem</h2>
+<p>The most concrete reliability lesson from the observed wave was
+liveness.</p>
+<p>One state-audit worker stayed running for several minutes. No
+terminal receipt appeared during that period. The terminal surface was
+blank. The run directory only showed the initial prompt. The worker
+eventually completed, but while it was running the conductor did not
+have a strong heartbeat signal.</p>
+<p>That is not a minor UX issue. It is a process-control failure.</p>
+<p>In agent fleets, “still running” is not a sufficient state.</p>
+<p>A runner needs to distinguish:</p>
+<ul>
+<li>active worker;</li>
+<li>slow worker;</li>
+<li>silent worker;</li>
+<li>blocked worker;</li>
+<li>failed worker;</li>
+<li>cancelled worker;</li>
+<li>stale-running worker.</li>
+</ul>
+<p>The required controls are straightforward:</p>
+<ul>
+<li>heartbeat file updated by the wrapper;</li>
+<li>retained JSON event stream;</li>
+<li>maximum wall-clock timeout;</li>
+<li>no-output timeout;</li>
+<li>stale-running transition;</li>
+<li>automatic blocked-state conversion;</li>
+<li>structured failure reason;</li>
+<li>final receipt required for terminal state.</li>
+</ul>
+<p>The state model should be explicit:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Meaning</th>
+<th>Required operator signal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>queued</code></td>
+<td>Work exists but has no owner.</td>
+<td>Priority, lane, and acceptance criteria.</td>
+</tr>
+<tr class="even">
+<td><code>leased</code></td>
+<td>A worker owns the task for a bounded interval.</td>
+<td>Lease owner and expiry.</td>
+</tr>
+<tr class="odd">
+<td><code>running</code></td>
+<td>The worker is active and producing heartbeat updates.</td>
+<td>Last heartbeat and current phase.</td>
+</tr>
+<tr class="even">
+<td><code>silent</code></td>
+<td>The worker is alive but no output has appeared within the no-output
+window.</td>
+<td>Warning with elapsed silence.</td>
+</tr>
+<tr class="odd">
+<td><code>blocked</code></td>
+<td>The worker cannot continue without input, permission, or missing
+context.</td>
+<td>Blocker reason and next owner.</td>
+</tr>
+<tr class="even">
+<td><code>stale_running</code></td>
+<td>The lease or heartbeat is stale while the task is not terminal.</td>
+<td>Escalation and recovery action.</td>
+</tr>
+<tr class="odd">
+<td><code>failed</code></td>
+<td>The wrapper or task exited unsuccessfully.</td>
+<td>Return code, stderr summary, and retry policy.</td>
+</tr>
+<tr class="even">
+<td><code>done</code></td>
+<td>A final receipt exists and passed validation.</td>
+<td>Artifacts, evidence, and review packet.</td>
+</tr>
+</tbody>
+</table>
+<p>Monitoring literature makes the same distinction in different
+language: operators need signals that support action, not just status
+labels.<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a> For agent harnesses, a silent worker
+with no receipt should become an explicit blocked event. It should not
+hold the entire wave hostage while the operator guesses whether it is
+thinking, stuck, or gone.</p>
+<h2 id="proposed-architecture-codex-lane-runner">Proposed Architecture:
+Codex Lane Runner</h2>
+<p>The next build should be a Codex-native lane runner.</p>
+<p>It should not replace Codex. It should wrap Codex execution in
+durable process control.</p>
 <p>Core components:</p>
 <ol type="1">
-<li><code>tasks.json</code> or SQLite queue with leases, TTL, attempts,
-priority, and lane.</li>
-<li>Profile registry for model, reasoning effort, sandbox, workspace,
-max parallel, timeout, and role prompt.</li>
+<li>SQLite queue or <code>tasks.json</code>.</li>
+<li>Task leases with owner, TTL, and attempt counters.</li>
+<li>Priority and lane fields.</li>
+<li>Profile registry for role, sandbox, reasoning effort, timeout,
+workspace type, and allowed tools.</li>
+<li>Workspace allocator.</li>
 <li>Worktree allocator for write-capable tasks.</li>
-<li>Read-only fixture workspaces for evaluation tasks.</li>
-<li><code>codex exec</code> runner with
-<code>--output-last-message</code>, JSON events retained by default, and
-explicit output schema.</li>
-<li>Heartbeat file updated every 30 seconds by the wrapper.</li>
-<li>Stale-running detector that converts silent workers to
-<code>blocked</code> or <code>failed</code>.</li>
-<li>Controller/worker dispatch across approved nodes using node
-leases.</li>
-<li>Provenance manifest per run:
-<code>{task, runner, profile, prompt_hash, input_hashes, output_hashes, commands,    timestamps, returncode, reviewer}</code>.</li>
-<li>Watcher that aggregates terminal states and produces a synthesis
-packet.</li>
+<li>Read-only fixture workspace for benchmark tasks.</li>
+<li><code>codex exec</code> wrapper.</li>
+<li><code>--output-last-message</code> final receipt capture.</li>
+<li>JSON event retention.</li>
+<li>Heartbeat file.</li>
+<li>Timeout controller.</li>
+<li>Stale-running detector.</li>
+<li>Provenance manifest.</li>
+<li>Watcher and synthesis packet.</li>
+<li>Controller/worker node model.</li>
 </ol>
-<p>This runner should not replace native Codex subagents. It should
-provide the durable queue and receipt layer around them.</p>
-<h2 id="controller-worker-architecture">Controller + Worker
-Architecture</h2>
-<p>One node should remain the controller and review surface. Other
-approved nodes can operate as workers for long-running benchmark
-tasks.</p>
-<p>Proposed topology:</p>
+<p>The build can be incremental:</p>
+<ol type="1">
+<li>Start with a local queue and receipt schema.</li>
+<li>Add leases, attempts, and terminal-state validation.</li>
+<li>Wrap <code>codex exec</code> so every run emits JSON events,
+heartbeat, and <code>final.md</code>.</li>
+<li>Add stale-running detection and timeout conversion.</li>
+<li>Add worktree allocation for write-capable tasks.</li>
+<li>Add a watcher that turns terminal receipts into a synthesis
+packet.</li>
+<li>Add controller/worker dispatch only after the single-node runner is
+reliable.</li>
+</ol>
+<p>This order matters. A distributed runner without reliable local
+receipts only makes failure harder to understand.</p>
+<p>Example task record:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;task_id&quot;</span><span class="fu">:</span> <span class="st">&quot;op_20260510_example_ab12cd&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;lane&quot;</span><span class="fu">:</span> <span class="st">&quot;state-audit&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;profile&quot;</span><span class="fu">:</span> <span class="st">&quot;codex-review&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;leased&quot;</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;allowed_writes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;reports/state-audit/&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;acceptance&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;produce final.md&quot;</span><span class="ot">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;cite inspected files&quot;</span><span class="ot">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;do not mutate live systems&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;lease_owner&quot;</span><span class="fu">:</span> <span class="st">&quot;worker-01&quot;</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;lease_expires_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-05-10T20:30:00Z&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example receipt:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;task_id&quot;</span><span class="fu">:</span> <span class="st">&quot;op_20260510_example_ab12cd&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;done&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;summary&quot;</span><span class="fu">:</span> <span class="st">&quot;State audit completed against synthetic fixtures.&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;artifacts&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;final.md&quot;</span><span class="ot">,</span> <span class="st">&quot;provenance.json&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;evidence&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;fixtures/tasks.json&quot;</span><span class="ot">,</span> <span class="st">&quot;fixtures/logs/run-17.jsonl&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;commands&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;returncode&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;started_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-05-10T20:00:00Z&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ended_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-05-10T20:08:00Z&quot;</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;review_required&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The watcher should not merely print “done.” It should produce an
+operator packet:</p>
 <ul>
-<li>shared git-backed queue repo;</li>
-<li>configured worker workspace;</li>
-<li>sanitized capability class with allowed lanes and concurrency
-limits;</li>
-<li>task lease acquired by worker node;</li>
-<li>output receipt committed or synced back after completion;</li>
-<li>no direct live-system credentials in benchmark mode.</li>
+<li>completed lanes;</li>
+<li>blocked lanes;</li>
+<li>stale lanes;</li>
+<li>changed files;</li>
+<li>evidence inspected;</li>
+<li>claims requiring review;</li>
+<li>approval gates;</li>
+<li>next recommended action.</li>
 </ul>
-<p>This lets worker nodes absorb long-running benchmark work while the
-controller remains usable for interactive review.</p>
+<p>That packet is the difference between parallel work and parallel
+noise.</p>
+<h2 id="benchmark-design">Benchmark Design</h2>
+<p>The benchmark should test the harness, not just the model.</p>
+<p>This is proposed benchmark design, not completed evidence.</p>
+<p>Use paired randomized fixtures. Each fixture runs once through Hermes
+and once through Codex Lane Runner. Inputs, time limits, output schemas,
+and no-go boundaries should match. Runner order should be
+randomized.</p>
+<p>Benchmark data must be synthetic or sanitized. No live external
+mutations. No private records. No message-system actions. No public
+endpoint changes. No credentials.</p>
+<p>Reviewer packets should be anonymized by stripping runner names,
+timestamps, local paths, and formatting cues where feasible.</p>
+<p>Suggested sample plan:</p>
+<ul>
+<li>pilot: <code>N = 40</code> paired fixtures;</li>
+<li>candidate full run: <code>N = 160</code> paired fixtures;</li>
+<li>total candidate executions: <code>320</code> runner executions;</li>
+<li>randomized runner order;</li>
+<li>stratified workload classes;</li>
+<li>bootstrap confidence intervals for paired quality differences.</li>
+</ul>
+<p>Workload classes should be practical:</p>
+<ol type="1">
+<li>queue triage from task state;</li>
+<li>document evidence extraction;</li>
+<li>record-staging from synthetic CSV/SQLite;</li>
+<li>no-send message drafting to local files;</li>
+<li>failure recovery with corrupt inputs;</li>
+<li>code modification with tests;</li>
+<li>measurement from run logs;</li>
+<li>synthesis from multiple receipts.</li>
+</ol>
+<p>The primary endpoint should be paired mean quality difference:</p>
+<p><code>Delta Q = Q_codex_lane_runner - Q_hermes</code></p>
+<p>Report a stratified 95% bootstrap confidence interval. Treat the
+pilot as a pilot. Do not turn it into a victory claim.</p>
+<h2 id="evaluation-metrics">Evaluation Metrics</h2>
+<p>The metrics should be readable enough for operators and strict enough
+for engineers.</p>
+<p>Primary components:</p>
+<ul>
+<li>correctness;</li>
+<li>completeness;</li>
+<li>evidence quality;</li>
+<li>decision quality;</li>
+<li>usability;</li>
+<li>safety-boundary adherence;</li>
+<li>auditability;</li>
+<li>reliability;</li>
+<li>latency;</li>
+<li>human review minutes;</li>
+<li>cost.</li>
+</ul>
+<p>Quality score:</p>
+<pre class="text"><code>Q = 0.35 correctness
+  + 0.20 completeness
+  + 0.15 evidence quality
+  + 0.15 decision quality
+  + 0.15 usability</code></pre>
+<p>Auditability score:</p>
+<pre class="text"><code>A = 0.20 inputs
+  + 0.20 steps
+  + 0.20 artifacts
+  + 0.20 decisions
+  + 0.20 replayability</code></pre>
+<p>Exploratory value density:</p>
+<pre class="text"><code>VD = (Q * B * R * A) / (latency_minutes * total_cost)</code></pre>
+<p><code>B</code> is safety-boundary adherence. <code>R</code> is
+reliability. <code>A</code> is auditability.</p>
+<p>Value density is not a primary endpoint. It mixes scales, so it can
+be useful for tradeoff inspection but dangerous as the headline result.
+Report raw metrics before composite scores.</p>
+<p>The practical throughput lesson is enough: more workers help only
+when tasks are independent, human approval does not become the serial
+bottleneck, and review burden does not erase the parallelism gain.</p>
+<h2 id="public-data-boundary">Public Data Boundary</h2>
+<p>Private operational records are not benchmark data.</p>
+<p>Public release should use synthetic fixtures and sanitized
+evidence-shape examples. Do not publish private paths, private vendors,
+model labels, contact routes, record rows, host details, security
+posture, credentials, or live-system counts.</p>
+<p>A public paper can say that a private operational wave revealed a
+liveness gap and reduced operator bookkeeping. It should not expose
+operational internals unless they are separately sanitized and
+approved.</p>
+<p>This boundary matters because the paper’s value is the systems
+lesson, not the private content of the work that surfaced it.</p>
 <h2 id="findings">Findings</h2>
-<p>Finding 1: The observed workflow favored the Hermes-style harness
-because it made task state, lane ownership, and receipts more explicit;
-this is a case-study observation, not a controlled benchmark result.</p>
-<p>Finding 2: Codex documentation describes primitives needed for a
-comparable lane runner: local CLI execution, subagents, sandboxing,
-worktrees, non-interactive mode, tools, MCP, and review.</p>
-<p>Finding 3: Hermes’ receipts and lanes appeared to reduce operator
-bookkeeping and review burden in the observed wave, especially when a
-user was juggling many operational questions.</p>
-<p>Finding 4: Hermes currently needs stronger liveness and timeout
-controls. A silent worker can hold a wave open even when all other lanes
-are done.</p>
-<p>Finding 5: The best next architecture is hybrid: Codex execution
-wrapped in a Hermes-like durable lane runner, with measured improvements
-rather than identity-based preference.</p>
+<ol type="1">
+<li>Hermes’ advantage in the observed workflow came from harness
+semantics, not necessarily better model intelligence.</li>
+<li>Codex already has enough documented first-party primitives to
+support an equivalent or better lane runner.</li>
+<li>Receipts, lane ownership, and watcher state reduced operator
+bookkeeping.</li>
+<li>The largest observed reliability gap was liveness: a worker could
+appear running without enough progress evidence.</li>
+<li>The right next step is not choosing Hermes or Codex by identity. It
+is building and benchmarking a Codex-native control harness.</li>
+</ol>
 <h2 id="recommendations">Recommendations</h2>
 <ol type="1">
-<li>For the current private operational workflow, keep Hermes
-operator-fleet for multi-lane work until Codex-native lane running has
-equivalent receipts, status, and watcher behavior.</li>
-<li>Add heartbeat, timeout, stale-running, and blocked-state conversion
-to the existing Hermes wrapper immediately.</li>
-<li>Build the Codex Lane Runner as a separate public/sanitized harness
-project, not inside live operational repositories.</li>
-<li>Benchmark using synthetic workloads before making claims about
-superiority.</li>
-<li>Treat private operational data, records, message systems, and
-external workflow state as out of scope for public release data.</li>
+<li>Continue using Hermes for private multi-lane work until Codex Lane
+Runner has equivalent queue, receipt, and watcher behavior.</li>
+<li>Add heartbeat, no-output timeout, max-runtime timeout, stale-running
+detection, and blocked-state conversion immediately.</li>
+<li>Build Codex Lane Runner as a separate sanitized project.</li>
+<li>Use synthetic benchmark fixtures before publishing superiority
+claims.</li>
+<li>Treat live systems, private records, message systems, and
+operational credentials as out of scope for benchmarking.</li>
+<li>Report raw metrics before composite scores.</li>
 </ol>
-<h2 id="public-data-boundary">Public Data Boundary</h2>
-<p>The observed private operational wave involved non-public records and
-message-routing context. That material is useful for internal
-evaluation, but it is not public benchmark data. Public release should
-use synthetic fixtures that preserve the shape of the work without
-exposing private entities, contact routes, record rows, message data, or
-strategy.</p>
-<p>The public paper may say that a private operational wave revealed a
-liveness gap and that receipts reduced review burden. It should not
-publish private identifiers, private contact routes, or live-system
-counts unless Ahmed separately approves a sanitized disclosure.</p>
 <h2 id="limitations">Limitations</h2>
-<p>This draft is based on local source inspection, official
-documentation, and a single observed operating wave. It is not yet a
-controlled benchmark result. The benchmark design must be executed
-before publishing quantitative superiority claims.</p>
+<p>This paper is grounded in a single observed operational wave and
+local source inspection. It is not a controlled benchmark.</p>
+<p>Some implementation observations are not independently reproducible
+until sanitized manifests are published. The proposed metrics and
+weights are judgmental until validated. The benchmark may show that
+Hermes, Codex Lane Runner, or some hybrid performs differently across
+workload classes.</p>
+<p>That uncertainty is acceptable. The point of this paper is not to
+declare a winner. The point is to identify the missing control plane and
+make the next build measurable.</p>
+<p>The next serious improvement in agentic work may not come from asking
+the model to think harder. It may come from making every worker bounded,
+observable, reviewable, and accountable.</p>
 <h2 id="references">References</h2>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Michael Wooldridge and Nicholas R. Jennings,
-“Intelligent Agents: Theory and Practice,” <em>The Knowledge Engineering
-Review</em>, 10(2), 1995, https://doi.org/10.1017/S0269888900008122.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Peter Stone and Manuela Veloso, “Multiagent Systems: A
-Survey from a Machine Learning Perspective,” <em>Autonomous Robots</em>,
-8(3), 2000, https://doi.org/10.1023/A:1008942012299.<a href="#fnref2"
+<li id="fn1"><p>OpenAI, “Codex CLI,” OpenAI Developers, accessed
+2026-05-10, https://developers.openai.com/codex/cli.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Shunyu Yao et al., “ReAct: Synergizing Reasoning and
-Acting in Language Models,” ICLR, 2023,
-https://arxiv.org/abs/2210.03629.<a href="#fnref3" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>Qingyun Wu et al., “AutoGen: Enabling Next-Gen LLM
-Applications via Multi-Agent Conversation,” arXiv:2308.08155, 2023,
-https://arxiv.org/abs/2308.08155.<a href="#fnref4" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Wil M. P. van der Aalst et al., “Workflow Patterns,”
-<em>Distributed and Parallel Databases</em>, 14(1), 2003,
-https://doi.org/10.1023/A:1022883727209.<a href="#fnref5"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>Raja Parasuraman, Thomas B. Sheridan, and Christopher D.
-Wickens, “A Model for Types and Levels of Human Interaction with
-Automation,” <em>IEEE Transactions on Systems, Man, and Cybernetics -
-Part A</em>, 30(3), 2000, https://doi.org/10.1109/3468.844354.<a
-href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Mica R. Endsley, “Toward a Theory of Situation Awareness
-in Dynamic Systems,” <em>Human Factors</em>, 37(1), 1995,
-https://doi.org/10.1518/001872095779049543.<a href="#fnref7"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Robert E. Kraut and Lynn A. Streeter, “Coordination in
-Software Development,” <em>Communications of the ACM</em>, 38(3), 1995,
-https://doi.org/10.1145/203330.203345.<a href="#fnref8"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Marcelo Cataldo, James D. Herbsleb, and Kathleen M.
-Carley, “Socio-Technical Congruence,” ESEM, 2008,
-https://doi.org/10.1145/1414004.1414008.<a href="#fnref9"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>OpenAI, “Codex CLI,” OpenAI Developers, accessed
-2026-05-10, https://developers.openai.com/codex/cli.<a href="#fnref10"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>OpenAI, “Subagents,” OpenAI Developers, accessed
+<li id="fn2"><p>OpenAI, “Subagents,” OpenAI Developers, accessed
 2026-05-10, https://developers.openai.com/codex/subagents.<a
-href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p>OpenAI, “Sandbox,” OpenAI Developers, accessed
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>OpenAI, “Sandbox,” OpenAI Developers, accessed
 2026-05-10, https://developers.openai.com/codex/concepts/sandboxing.<a
-href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p>OpenAI, “Worktrees,” OpenAI Developers, accessed
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>OpenAI, “Worktrees,” OpenAI Developers, accessed
 2026-05-10, https://developers.openai.com/codex/app/worktrees.<a
-href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn14"><p>W3C, “PROV-DM: The PROV Data Model,” W3C
-Recommendation, 2013, https://www.w3.org/TR/prov-dm/.<a href="#fnref14"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn15"><p>Rob Ewaschuk, “Monitoring Distributed Systems,” in
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Rob Ewaschuk, “Monitoring Distributed Systems,” in
 <em>Site Reliability Engineering</em>, Google,
 https://sre.google/sre-book/monitoring-distributed-systems/.<a
-href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn16"><p>Gene M. Amdahl, “Validity of the Single Processor
-Approach to Achieving Large Scale Computing Capabilities,” AFIPS
-Conference Proceedings, 1967.<a href="#fnref16" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn17"><p>John L. Gustafson, “Reevaluating Amdahl’s Law,”
-<em>Communications of the ACM</em>, 31(5), 1988,
-https://cacm.acm.org/research/reevaluating-amdahls-law/.<a
-href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>
