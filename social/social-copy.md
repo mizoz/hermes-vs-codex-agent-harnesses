@@ -2,8 +2,8 @@
 
 ## LinkedIn Post 1
 
-I am releasing a draft methodology package on agent harnesses: how operational
-control systems shape the usefulness of agentic software work.
+I am releasing a public case-study comparison on agent harnesses: how
+operational control systems shape the usefulness of agentic software work.
 
 The paper compares two modes:
 
@@ -13,10 +13,14 @@ lanes, receipts, worktrees, approval boundaries, and status surfaces.
 Codex-native lane running: direct use of Codex CLI/app primitives such as local
 execution, subagents, worktrees, sandboxing, tools, and non-interactive runs.
 
-The current conclusion is deliberately narrow: this is not a benchmark-results
-paper. It is a case-study and methodology package arguing that model quality
-alone does not explain operator throughput. The harness around the model
-matters.
+As of 2026-05-10, the case-study finding is deliberately narrow:
+
+Hermes was better at multi-lane operational control.
+Codex was better as a direct execution substrate.
+
+This is not a controlled benchmark result. It is a public case-study finding:
+model quality alone does not explain operator throughput. The harness around
+the model matters.
 
 The next step is the paired benchmark: synthetic workloads, randomized ordering,
 fixed scoring rubrics, no live record-system or message-system mutation, and
@@ -40,7 +44,7 @@ What did it produce?
 What failed?
 What needs human approval?
 
-That is the lens of my draft paper, "Agent Harnesses as Operational Control
+That is the lens of my paper, "Agent Harnesses as Operational Control
 Systems."
 
 The case study compares Hermes operator-fleet and Codex-native lane running.
@@ -51,12 +55,15 @@ surfaces.
 Codex exposes documented first-party primitives: local CLI, subagents,
 worktrees, sandboxing, plugins, and non-interactive execution.
 
+As of 2026-05-10, the comparison found Hermes stronger at multi-lane
+coordination and Codex stronger as an execution substrate.
+
 The proposed architecture is hybrid: Codex execution wrapped in a more durable
 lane runner with heartbeats, timeouts, provenance manifests, stale-worker
 detection, and cross-machine scheduling.
 
-This is a draft methodology package, not a claim of proven superiority. The
-benchmark still has to run.
+This is a case-study finding, not a controlled benchmark win. The benchmark
+still has to run.
 
 https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
@@ -68,21 +75,20 @@ Adding workers only helps until coordination, review, retry, and blocked-state
 overhead dominate. In agentic work, the harness is where those costs either
 become visible or stay hidden.
 
-I wrote a draft white paper comparing Hermes operator-fleet and Codex-native
-lane running as agent harnesses.
+I wrote a white paper comparing Hermes operator-fleet and Codex-native lane
+running as agent harnesses.
 
-The narrow finding: in one observed workflow, the Hermes-style harness made
-state, lane ownership, and receipts more explicit. Codex already has documented
-first-party execution primitives. The missing layer is durable multi-worker
-process control.
+The narrow finding: in one observed workflow, Hermes was better at operational
+control. Codex was better as a direct execution substrate. The missing layer is
+durable multi-worker process control around the execution.
 
 The paper proposes a Codex-native lane runner with leased task queues, profile
 registry, worktree allocator, heartbeat files, timeout and stale-running
 detection, retained JSON events, provenance manifests, terminal receipts, and
 synthetic benchmark fixtures.
 
-This is draft research infrastructure. The honest next milestone is measurement,
-not victory language.
+This is public case-study evidence. The honest next milestone is controlled
+measurement, not victory language.
 
 https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
@@ -114,25 +120,29 @@ sandboxing, subagents, plugins, MCP, and direct verification.
 Slide 6: The Gap
 Raw capability does not automatically become durable process control.
 
-Slide 7: Liveness Matters
+Slide 7: Current Finding
+Hermes was better at multi-lane operational control. Codex was better as a
+direct execution substrate.
+
+Slide 8: Liveness Matters
 A silent worker is different from a slow worker. Agent harnesses need heartbeat,
 timeout, stale-running, and blocked-state semantics.
 
-Slide 8: Benchmark Boundary
+Slide 9: Benchmark Boundary
 No live record-system, message-system, external contact, public endpoint, or
 paid SaaS mutation. Use synthetic or sanitized fixtures.
 
-Slide 9: Proposed Architecture
+Slide 10: Proposed Architecture
 Codex execution plus a Hermes-like lane runner: queue, leases, profiles,
 worktrees, receipts, provenance, watcher synthesis.
 
-Slide 10: Current Status
-Draft methodology and case-study package. Not benchmark results. Next step:
-paired randomized evaluation.
+Slide 11: Current Status
+Case-study findings, not controlled benchmark results. Next step: paired
+randomized evaluation.
 
 ## X Thread 1
 
-1/ I am releasing a draft methodology package on agent harnesses: how
+1/ I am releasing a public case-study comparison on agent harnesses: how
 operational control systems shape agentic software work.
 
 The comparison is Hermes operator-fleet vs Codex-native lane running.
@@ -141,8 +151,12 @@ https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 2/ The claim is narrow.
 
-This is not a benchmark-results paper. It is a case-study and methodology
-package about harness design, coordination overhead, and provenance.
+As of 2026-05-10:
+
+Hermes was better at multi-lane operational control.
+Codex was better as a direct execution substrate.
+
+This is a case-study finding, not a controlled benchmark result.
 
 3/ Hermes made multi-lane work feel coherent because it exposed lanes, profiles,
 task state, worktrees, approval boundaries, receipts, and watcher status.
@@ -163,10 +177,10 @@ provenance manifests.
 The package lays out paired synthetic workloads, randomized ordering, scoring
 rubrics, and strict no-live-system mutation boundaries.
 
-7/ The useful question is not "which agent wins?"
+7/ The useful question is not "which agent wins overall?"
 
-It is: what harness turns agent work into something bounded, inspectable,
-repeatable, and safe to review?
+It is: what harness turns strong execution into work that is bounded,
+inspectable, repeatable, and safe to review?
 
 https://github.com/mizoz/hermes-vs-codex-agent-harnesses/releases/download/v0.1.0-draft/whitepaper.pdf
 
@@ -187,10 +201,10 @@ Codex-native = powerful direct execution primitives.
 
 3/ The observed case-study finding:
 
-Hermes exposed clearer task state and review artifacts. Codex exposed documented
-first-party execution primitives.
+Hermes was better at operational control: task state, review artifacts,
+boundaries, receipts, watcher surfaces.
 
-That is not a superiority claim. It is a design hypothesis.
+Codex was better as the execution substrate.
 
 4/ The weak point found in the Hermes-style setup was liveness.
 
@@ -207,8 +221,8 @@ conversion, retained event logs, and structured failure reasons.
 Synthetic fixtures. Paired runs. Blind scoring where possible. No live
 record-system, message-system, or external-contact mutations.
 
-7/ Draft package now frames the work as methodology and architecture. Results
-claims wait until the benchmark is actually executed.
+7/ The paper now frames the work as comparison, methodology, and architecture.
+Controlled superiority claims wait until the benchmark is executed.
 
 https://github.com/mizoz/hermes-vs-codex-agent-harnesses/releases/download/v0.1.0-draft/whitepaper.pdf
 
@@ -217,9 +231,8 @@ https://github.com/mizoz/hermes-vs-codex-agent-harnesses/releases/download/v0.1.
 1. Agent fleets need more than strong models. They need lanes, receipts,
 approval boundaries, provenance, and liveness controls. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
-2. The draft finding is conservative: Hermes showed a clearer local fleet
-wrapper; Codex showed documented first-party execution primitives. The benchmark still
-needs to run. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
+2. The case-study finding is conservative: Hermes was better at multi-lane
+operational control; Codex was better as a direct execution substrate. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 3. A silent agent worker is not just "still running." It is an operational state
 that needs heartbeat, timeout, and blocked/failure semantics. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
@@ -227,21 +240,19 @@ that needs heartbeat, timeout, and blocked/failure semantics. https://mizoz.gith
 4. The useful agent question is shifting from "which model?" to "what harness
 makes delegated work inspectable and reviewable?" https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
-5. New draft package: agent harnesses as operational control systems. Case
-study, benchmark design, and a proposed Codex-native lane runner. Not benchmark
-results. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
+5. New case-study comparison: agent harnesses as operational control systems.
+Hermes won operational control; Codex won direct execution substrate. Benchmark
+claims still need paired synthetic runs. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 ## General Announcement Blurbs
 
-Ahmed Mahmoud of ZalaStack has released a draft methodology package, "Agent
-Harnesses as Operational Control Systems," comparing Hermes operator-fleet and
-Codex-native lane running. The work frames agent productivity as a harness and
-coordination problem, not just a model-quality question. Current status: draft
-case-study and benchmark design, with quantitative claims reserved for future
-paired evaluation.
+Ahmed Mahmoud of ZalaStack has released "Agent Harnesses as Operational Control
+Systems," a public case-study comparison of Hermes operator-fleet and
+Codex-native lane running. As of 2026-05-10, the finding is that Hermes was
+better at multi-lane operational control, while Codex was better as a direct
+execution substrate.
 
-New draft research package from Ahmed Mahmoud / ZalaStack: a conservative
-comparison of Hermes-style operator fleets and Codex-native lane running. The
-paper proposes a Codex-native lane runner with leases, receipts, heartbeats,
-timeouts, provenance manifests, and synthetic benchmark fixtures. It is not a
-results paper yet; it is the methodology and architecture groundwork.
+New public case-study package from Ahmed Mahmoud / ZalaStack: Hermes showed the
+stronger operational control plane; Codex showed the stronger execution
+substrate. The paper proposes a Codex-native lane runner with leases, receipts,
+heartbeats, timeouts, provenance manifests, and synthetic benchmark fixtures.

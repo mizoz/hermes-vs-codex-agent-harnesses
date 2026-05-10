@@ -7,26 +7,31 @@ date: "Draft: 2026-05-10"
 
 ## Executive Summary
 
-The practical difference between Hermes and Codex in the observed environment
-was not mainly model quality. It was harness quality.
+This paper compares two ways of running agentic work: Hermes operator-fleet and
+Codex-native lane running. The comparison is based on a case-study observation,
+not a controlled benchmark.
 
-Hermes felt more effective for messy parallel work because it made the work
-inspectable: lanes, task state, acceptance criteria, approval boundaries,
-receipts, watcher loops, and terminal status were all visible to the operator.
-Codex has strong first-party execution primitives: local CLI execution,
-non-interactive execution, sandbox and approval controls, subagents, worktrees,
-tools, and code editing. Those primitives are powerful, but they do not
-automatically become durable multi-worker process control.
+As of 2026-05-10, the case-study finding is clear:
 
-The gap is not intelligence. The gap is operational control.
+- Hermes was better at multi-lane operational control: task decomposition,
+  visible state, acceptance criteria, approval boundaries, receipts, watcher
+  synthesis, and operator bookkeeping.
+- Codex was better as a direct execution substrate: local code inspection,
+  editing, command execution, tool use, subagents, worktrees, and sandboxed
+  workspace work.
 
-The obvious next build is a Codex-native lane runner: Codex execution wrapped in
-a durable queue, leases, workspace allocation, provenance manifests, heartbeats,
-timeouts, stale-worker detection, final receipts, and review packets.
+The practical difference was not mainly model quality. It was harness quality.
+Hermes exposed a stronger operational control plane. Codex exposed stronger
+first-party execution primitives. The most useful architecture is therefore not
+"Hermes instead of Codex" or "Codex instead of Hermes." It is Codex execution
+wrapped in a durable lane runner.
 
-This paper is based on case-study observation from a private operational wave.
-It is not a controlled benchmark result. The benchmark proposed here should run
-only on synthetic or sanitized fixtures before any superiority claim is made.
+The proposed Codex Lane Runner would add the missing control layer: queue state,
+leases, workspace allocation, provenance manifests, heartbeats, timeouts,
+stale-worker detection, final receipts, and review packets.
+
+The paper separates what was observed, what is inferred, and what still needs a
+paired benchmark. Public claims should stay inside that boundary.
 
 ## The Problem: Capable Agents Are Not Enough
 
@@ -57,7 +62,7 @@ into bounded tasks, assigns workers, constrains permissions, captures evidence,
 records state transitions, and produces reviewable artifacts. A good harness
 does not make the model smarter. It makes the work safer to delegate.
 
-## The Case Study: Hermes vs Codex in Parallel Work
+## Case Study: Hermes vs Codex in Parallel Work
 
 The motivating observation was a private operational wave with several lanes
 running in parallel. The wave was not a scientific benchmark. It was a live
@@ -78,10 +83,46 @@ sandboxing, subagents, and app worktrees.[^codex-cli][^codex-subagents][^codex-s
 The lesson was not "Hermes is better" or "Codex is worse." The lesson was more
 specific:
 
-> Codex has strong execution primitives. Hermes exposed stronger process-control
-> semantics in the observed workflow.
+> Codex had the stronger execution surface. Hermes had the stronger operational
+> control surface.
 
 That is the design opportunity.
+
+## Methodology
+
+This paper uses a qualitative case-study method. The goal is not to score model
+intelligence. The goal is to compare harness behavior under messy parallel work.
+
+The observation unit was an operational wave: one operator request decomposed
+into multiple bounded lanes, each with a worker, prompt boundary, expected
+artifact, and terminal state. The comparison asked what each system made visible
+to the operator during and after the work.
+
+The evaluation questions were:
+
+1. Could the operator see what work existed?
+2. Could the operator see who owned each task?
+3. Were task boundaries and approval rules explicit?
+4. Did each worker produce a reviewable artifact?
+5. Could the operator distinguish running, blocked, failed, stale, and done?
+6. Did the harness reduce or increase human bookkeeping?
+7. Did the system provide enough evidence to review claims?
+8. Could the execution environment inspect, edit, run, and verify code?
+
+The evidence types were task records, lane prompts, acceptance criteria,
+terminal receipts, watcher output, generated artifacts, terminal behavior, and
+public Codex documentation. Private operational content is not used as benchmark
+data and is not published.
+
+The findings are classified in three levels:
+
+- **Observed finding:** directly visible in the case-study run.
+- **Interpretation:** a systems conclusion drawn from the observed behavior.
+- **Benchmark claim:** a claim that should not be made until paired synthetic
+  fixtures are run.
+
+This paper makes observed findings and interpretations. It does not claim a
+controlled benchmark winner.
 
 ## What Hermes Got Right
 
@@ -133,6 +174,42 @@ not another prompt. It is durable operational semantics around the execution:
 queue ownership, state transitions, liveness, evidence, receipts, and review.
 
 Codex can run the worker. The lane runner should make the worker accountable.
+
+## Comparative Findings as of 2026-05-10
+
+The case study supports a narrow public conclusion: Hermes and Codex were better
+at different parts of the job.
+
+**Hermes was the better observed fit for operational coordination.** It handled
+multi-lane decomposition, visible task state, acceptance criteria, approval
+boundaries, receipts, and watcher synthesis better in the observed wave. This is
+an observed finding.
+
+**Codex was the better observed fit for direct execution.** It had the stronger
+local inspect/edit/run loop and the richer first-party tooling surface:
+subagents, worktrees, sandbox controls, tool use, and local verification. This
+is an observed finding.
+
+**Neither system fully solved liveness.** Hermes made state more visible, but a
+silent-running worker still lacked strong heartbeat semantics. This is an
+observed reliability gap.
+
+**Neither system has a public benchmark win yet.** A fair public comparison
+needs paired synthetic fixtures, randomized runner order, anonymized review
+packets, and raw metrics before composite scores. This is a benchmark boundary.
+
+**The best next architecture is a Codex Lane Runner.** Codex has the execution
+substrate. Hermes showed the shape of the control plane. This is an
+interpretation, not a benchmark result.
+
+The most important result is therefore not a brand ranking. It is a functional
+ranking:
+
+- for **parallel operational coordination**, Hermes was better in the observed
+  wave;
+- for **direct workspace execution**, Codex was better positioned;
+- for **future serious agent operations**, the strongest candidate is a hybrid:
+  Codex execution inside a durable Hermes-style lane runner.
 
 ## The Real Gap: Durable Operational Control
 
@@ -308,7 +385,7 @@ The watcher should not merely print "done." It should produce an operator packet
 
 That packet is the difference between parallel work and parallel noise.
 
-## Benchmark Design
+## Benchmark Design for the Next Phase
 
 The benchmark should test the harness, not just the model.
 
@@ -425,27 +502,45 @@ private content of the work that surfaced it.
 
 ## Findings
 
-1. Hermes' advantage in the observed workflow came from harness semantics, not
-   necessarily better model intelligence.
-2. Codex already has enough documented first-party primitives to support an
-   equivalent or better lane runner.
-3. Receipts, lane ownership, and watcher state reduced operator bookkeeping.
-4. The largest observed reliability gap was liveness: a worker could appear
-   running without enough progress evidence.
-5. The right next step is not choosing Hermes or Codex by identity. It is
-   building and benchmarking a Codex-native control harness.
+1. **Hermes was better at operational control in the observed case study.**
+   It made parallel work easier to supervise because lanes, state, acceptance
+   criteria, boundaries, receipts, and watcher synthesis were visible.
+2. **Codex was better as a direct execution substrate.** It offered stronger
+   local code inspection, editing, command execution, subagent, worktree, and
+   tool primitives.
+3. **The performance difference was a harness difference.** The observed gap was
+   not that one side was simply "smarter." The gap was whether parallel work
+   became inspectable process state.
+4. **Receipts changed the operator experience.** A final artifact per lane made
+   it easier to review, reject, synthesize, and continue.
+5. **Liveness was the sharpest reliability lesson.** "Still running" was not
+   enough. A serious runner needs heartbeat, no-output timeout, max-runtime
+   timeout, stale-running detection, blocked-state conversion, and structured
+   failure reasons.
+6. **The public benchmark has not been run yet.** Any superiority claim beyond
+   the case-study dimensions above requires paired synthetic fixtures and
+   blinded review.
 
-## Recommendations
+## Implications
 
-1. Continue using Hermes for private multi-lane work until Codex Lane Runner has
-   equivalent queue, receipt, and watcher behavior.
-2. Add heartbeat, no-output timeout, max-runtime timeout, stale-running
-   detection, and blocked-state conversion immediately.
-3. Build Codex Lane Runner as a separate sanitized project.
-4. Use synthetic benchmark fixtures before publishing superiority claims.
-5. Treat live systems, private records, message systems, and operational
-   credentials as out of scope for benchmarking.
-6. Report raw metrics before composite scores.
+For operators, the finding is practical: do not evaluate agent systems only by
+how smart the worker sounds. Evaluate whether the harness makes work bounded,
+observable, reviewable, and recoverable.
+
+For builders, the lesson is architectural: agent fleets need the same basic
+control concepts as other operational systems. Queue state, leases, heartbeats,
+timeouts, receipts, provenance, and review packets are not extras. They are the
+interface that makes parallel delegation usable.
+
+For Codex users, the opportunity is specific. Codex already has the execution
+surface. A Codex-native lane runner should wrap that surface with durable task
+state and public benchmark fixtures. If that layer is built, Codex can plausibly
+match Hermes' observed operational strengths while keeping Codex's direct
+execution advantages.
+
+For researchers and reviewers, the next step is measurement. Run the same
+fixtures through both harnesses, anonymize reviewer packets, report raw metrics
+before composite scores, and separate throughput from review burden.
 
 ## Limitations
 
@@ -471,5 +566,4 @@ reviewable, and accountable.
 [^codex-subagents]: OpenAI, "Subagents," OpenAI Developers, accessed 2026-05-10, https://developers.openai.com/codex/subagents.
 [^codex-sandbox]: OpenAI, "Sandbox," OpenAI Developers, accessed 2026-05-10, https://developers.openai.com/codex/concepts/sandboxing.
 [^codex-worktrees]: OpenAI, "Worktrees," OpenAI Developers, accessed 2026-05-10, https://developers.openai.com/codex/app/worktrees.
-[^w3c-prov]: W3C, "PROV-DM: The PROV Data Model," W3C Recommendation, 2013, https://www.w3.org/TR/prov-dm/.
 [^sre-monitoring]: Rob Ewaschuk, "Monitoring Distributed Systems," in *Site Reliability Engineering*, Google, https://sre.google/sre-book/monitoring-distributed-systems/.

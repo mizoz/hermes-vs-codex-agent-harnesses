@@ -1,20 +1,19 @@
 # Outline
 
 1. Executive summary
-2. Problem statement: model strength vs harness strength
-3. System descriptions
-   - Hermes operator-fleet
-   - Codex-native lane running
-4. Comparative architecture
-5. Why Hermes felt more efficient
-6. Where Codex is stronger
-7. Failure case: silent worker holding a wave open
-8. Measurement framework
-9. Mathematical model
-10. Benchmark design
-11. Proposed Codex lane-runner refactor
-12. Public-release data boundaries
-13. Findings
-14. Recommendations
-15. Limitations
-16. References
+2. The problem: capable agents are not enough
+3. Case study: Hermes vs Codex in parallel work
+4. Methodology
+5. What Hermes got right
+6. What Codex already has
+7. Comparative findings as of 2026-05-10
+8. The real gap: durable operational control
+9. The liveness problem
+10. Proposed architecture: Codex Lane Runner
+11. Benchmark design for the next phase
+12. Evaluation metrics
+13. Public data boundary
+14. Findings
+15. Implications
+16. Limitations
+17. References

@@ -9,11 +9,13 @@ operational control systems.
   worktrees, sandboxing, and non-interactive execution without an additional
   queue controller.
 
-The core claim is narrow: model quality alone does not explain operator
-throughput. A harness that captures lanes, task state, leases, approval
-boundaries, receipts, provenance, liveness, and review packets can reduce
-coordination overhead in multi-lane operational work. Quantitative superiority
-claims require the paired benchmark described in this repository.
+The core case-study finding is narrow and public-facing: as of 2026-05-10,
+Hermes was better at multi-lane operational control, while Codex was better as
+a direct execution substrate. The difference was not mainly model quality. It
+was harness quality.
+
+Quantitative superiority claims require the paired benchmark described in this
+repository.
 
 ## Public Links
 
@@ -23,8 +25,8 @@ claims require the paired benchmark described in this repository.
 
 ## Current Status
 
-Public draft research package. This is not a benchmark-results paper.
-Quantitative claims require executing the paired benchmark described here.
+Public draft case-study, methodology, and benchmark design package. It contains
+observed findings and design implications, not controlled benchmark results.
 
 ## Author
 

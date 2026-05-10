@@ -110,7 +110,7 @@ def generate_og() -> None:
     draw.text((72, 158), "Agent Harnesses", font=font(58, True), fill=TEXT)
     subtitle = "A practical comparison of agent execution, memory, tooling, and verification workflows"
     text_block(draw, (76, 252), subtitle, font(30), 520, SECONDARY, 10)
-    draw.text((76, 540), "Draft methodology notes", font=font(22, True), fill=AMBER)
+    draw.text((76, 540), "Case-study findings", font=font(22, True), fill=AMBER)
     lane_diagram(draw, 690, 96, 420, 420)
     image.save(SOCIAL / "og-card.png", quality=95)
 
