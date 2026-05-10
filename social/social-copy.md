@@ -1,8 +1,5 @@
 # Social Launch Copy
 
-Replace `https://mizoz.github.io/hermes-vs-codex-agent-harnesses/` with the GitHub Pages URL and `https://github.com/mizoz/hermes-vs-codex-agent-harnesses/releases/download/v0.1.0-draft/whitepaper.pdf` with the release
-PDF URL after publication.
-
 ## LinkedIn Post 1
 
 I am releasing a draft methodology package on agent harnesses: how operational
