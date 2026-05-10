@@ -48,7 +48,7 @@ Hermes made multi-lane work feel more coherent because it externalized
 coordination: lanes, task state, receipts, profile boundaries, and watcher
 surfaces.
 
-Codex exposed strong native execution primitives: local CLI, subagents,
+Codex exposes documented first-party primitives: local CLI, subagents,
 worktrees, sandboxing, plugins, and non-interactive execution.
 
 The proposed architecture is hybrid: Codex execution wrapped in a more durable
@@ -72,9 +72,9 @@ I wrote a draft white paper comparing Hermes operator-fleet and Codex-native
 lane running as agent harnesses.
 
 The narrow finding: in one observed workflow, the Hermes-style harness made
-state, lane ownership, and receipts more explicit. Codex already has many of the
-strong execution primitives. The missing layer is durable multi-worker process
-control.
+state, lane ownership, and receipts more explicit. Codex already has documented
+first-party execution primitives. The missing layer is durable multi-worker
+process control.
 
 The paper proposes a Codex-native lane runner with leased task queues, profile
 registry, worktree allocator, heartbeat files, timeout and stale-running
@@ -108,7 +108,7 @@ Task ownership, allowed writes, approval boundaries, acceptance criteria,
 terminal receipts, and lane status.
 
 Slide 5: What Codex Already Has
-Strong local execution substrate: code editing, shell, app worktrees,
+Documented first-party primitives: code editing, shell, app worktrees,
 sandboxing, subagents, plugins, MCP, and direct verification.
 
 Slide 6: The Gap
@@ -149,7 +149,7 @@ task state, worktrees, approval boundaries, receipts, and watcher status.
 
 That matters when work is messy and parallel.
 
-4/ Codex has strong native primitives: CLI, local execution, subagents,
+4/ Codex has documented first-party primitives: CLI, local execution, subagents,
 worktrees, sandboxing, plugins, tools, and non-interactive runs.
 
 The gap is not raw capability. It is durable multi-worker process control.
@@ -187,8 +187,8 @@ Codex-native = powerful direct execution primitives.
 
 3/ The observed case-study finding:
 
-Hermes exposed clearer task state and review artifacts. Codex exposed stronger
-native execution substrate.
+Hermes exposed clearer task state and review artifacts. Codex exposed documented
+first-party execution primitives.
 
 That is not a superiority claim. It is a design hypothesis.
 
@@ -218,7 +218,7 @@ https://github.com/mizoz/hermes-vs-codex-agent-harnesses/releases/download/v0.1.
 approval boundaries, provenance, and liveness controls. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 2. The draft finding is conservative: Hermes showed a clearer local fleet
-wrapper; Codex showed stronger native execution primitives. The benchmark still
+wrapper; Codex showed documented first-party execution primitives. The benchmark still
 needs to run. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 3. A silent agent worker is not just "still running." It is an operational state
