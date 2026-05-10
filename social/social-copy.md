@@ -233,14 +233,15 @@ results. https://mizoz.github.io/hermes-vs-codex-agent-harnesses/
 
 ## General Announcement Blurbs
 
-Ahmed has released a draft methodology package, "Agent Harnesses as Operational
-Control Systems," comparing Hermes operator-fleet and Codex-native lane running.
-The work frames agent productivity as a harness and coordination problem, not
-just a model-quality question. Current status: draft case-study and benchmark
-design, with quantitative claims reserved for future paired evaluation.
+Ahmed Mahmoud of ZalaStack has released a draft methodology package, "Agent
+Harnesses as Operational Control Systems," comparing Hermes operator-fleet and
+Codex-native lane running. The work frames agent productivity as a harness and
+coordination problem, not just a model-quality question. Current status: draft
+case-study and benchmark design, with quantitative claims reserved for future
+paired evaluation.
 
-New draft research package from Ahmed/ZalaStack: a conservative comparison of
-Hermes-style operator fleets and Codex-native lane running. The paper proposes a
-Codex-native lane runner with leases, receipts, heartbeats, timeouts, provenance
-manifests, and synthetic benchmark fixtures. It is not a results paper yet; it
-is the methodology and architecture groundwork.
+New draft research package from Ahmed Mahmoud / ZalaStack: a conservative
+comparison of Hermes-style operator fleets and Codex-native lane running. The
+paper proposes a Codex-native lane runner with leases, receipts, heartbeats,
+timeouts, provenance manifests, and synthetic benchmark fixtures. It is not a
+results paper yet; it is the methodology and architecture groundwork.

@@ -1,7 +1,7 @@
 ---
 title: Agent Harnesses as Operational Control Systems
 subtitle: Why Codex needs a durable lane runner for serious parallel work
-author: Ahmed
+author: "Ahmed Mahmoud, ZalaStack, Calgary, Alberta, Canada, GitHub: github.com/mizoz"
 date: "Draft: 2026-05-10"
 ---
 

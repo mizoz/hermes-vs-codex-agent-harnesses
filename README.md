@@ -26,6 +26,12 @@ claims require the paired benchmark described in this repository.
 Public draft research package. This is not a benchmark-results paper.
 Quantitative claims require executing the paired benchmark described here.
 
+## Author
+
+Ahmed Mahmoud, ZalaStack, Calgary, Alberta, Canada.
+
+GitHub: [@mizoz](https://github.com/mizoz)
+
 ## Repository Map
 
 | Path | Purpose |

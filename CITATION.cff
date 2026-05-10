@@ -1,9 +1,12 @@
 cff-version: 1.2.0
-title: "Agent Harnesses as Operational Control Systems: A Comparative Study of Hermes Operator-Fleet and Codex-Native Lane Running"
+title: "Agent Harnesses as Operational Control Systems: Why Codex needs a durable lane runner for serious parallel work"
 message: "If you use this work, please cite it as below."
 type: report
 authors:
-  - name: Ahmed
+  - given-names: Ahmed
+    family-names: Mahmoud
+    affiliation: "ZalaStack, Calgary, Alberta, Canada"
+    website: "https://github.com/mizoz"
 date-released: 2026-05-10
 version: "0.1.0-draft"
 keywords:
