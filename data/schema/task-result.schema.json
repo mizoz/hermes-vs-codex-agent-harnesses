@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zalastack:agent-harnesses:schema:task-result:v0.1.0-draft",
+  "title": "TaskResult",
+  "type": "object",
+  "required": [
+    "task_id",
+    "pair_id",
+    "fixture_id",
+    "seed",
+    "repetition",
+    "workload_class",
+    "runner",
+    "profile",
+    "model",
+    "sandbox",
+    "prompt_hash",
+    "fixture_hashes",
+    "randomization_order",
+    "runner_order",
+    "time_limit_seconds",
+    "started_at",
+    "ended_at",
+    "terminal_state",
+    "input_hashes",
+    "output_hashes",
+    "commands_or_tools",
+    "return_code",
+    "retry_count",
+    "human_review_minutes",
+    "scores",
+    "safety",
+    "scorer"
+  ],
+  "properties": {
+    "task_id": {"type": "string"},
+    "pair_id": {"type": "string"},
+    "fixture_id": {"type": "string"},
+    "seed": {"type": "integer"},
+    "repetition": {"type": "integer", "minimum": 1},
+    "workload_class": {"type": "string"},
+    "runner": {"type": "string", "enum": ["hermes", "codex-native"]},
+    "profile": {"type": "string"},
+    "model": {"type": "string"},
+    "sandbox": {"type": "string"},
+    "prompt_hash": {"type": "string"},
+    "fixture_hashes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "randomization_order": {"type": "integer", "minimum": 1},
+    "runner_order": {"type": "string", "enum": ["hermes-first", "codex-first"]},
+    "time_limit_seconds": {"type": "integer", "minimum": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "ended_at": {"type": "string", "format": "date-time"},
+    "terminal_state": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "accepted_with_minor_edits",
+        "rejected_quality",
+        "rejected_safety",
+        "blocked",
+        "timeout",
+        "runner_failed"
+      ]
+    },
+    "input_hashes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "output_hashes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "commands_or_tools": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "return_code": {"type": "integer"},
+    "retry_count": {"type": "integer", "minimum": 0},
+    "human_review_minutes": {"type": "number", "minimum": 0},
+    "scores": {
+      "type": "object",
+      "required": ["correctness", "completeness", "evidence", "decision", "usability"],
+      "properties": {
+        "correctness": {"type": "number", "minimum": 0, "maximum": 100},
+        "completeness": {"type": "number", "minimum": 0, "maximum": 100},
+        "evidence": {"type": "number", "minimum": 0, "maximum": 100},
+        "decision": {"type": "number", "minimum": 0, "maximum": 100},
+        "usability": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["critical", "major", "minor"],
+      "properties": {
+        "critical": {"type": "integer", "minimum": 0},
+        "major": {"type": "integer", "minimum": 0},
+        "minor": {"type": "integer", "minimum": 0}
+      }
+    },
+    "scorer": {
+      "type": "object",
+      "required": ["scorer_id", "blinded", "rubric_version"],
+      "properties": {
+        "scorer_id": {"type": "string"},
+        "blinded": {"type": "boolean"},
+        "rubric_version": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "task_id": "sample-task-002",
+  "pair_id": "pair-002",
+  "fixture_id": "fixture-failure-001",
+  "seed": 2001,
+  "repetition": 1,
+  "workload_class": "failure-recovery",
+  "runner": "codex-native",
+  "profile": "reviewer",
+  "model": "provider-neutral-coding-model",
+  "sandbox": "read-only",
+  "prompt_hash": "sha256:example-prompt-2",
+  "fixture_hashes": ["sha256:example-fixture-2"],
+  "randomization_order": 2,
+  "runner_order": "codex-first",
+  "time_limit_seconds": 900,
+  "started_at": "2026-05-10T14:00:00-06:00",
+  "ended_at": "2026-05-10T14:09:00-06:00",
+  "terminal_state": "accepted_with_minor_edits",
+  "input_hashes": ["sha256:example-input-2"],
+  "output_hashes": ["sha256:example-output-2"],
+  "commands_or_tools": ["read fixture", "write report"],
+  "return_code": 0,
+  "retry_count": 0,
+  "human_review_minutes": 4,
+  "scores": {
+    "correctness": 85,
+    "completeness": 80,
+    "evidence": 85,
+    "decision": 90,
+    "usability": 80
+  },
+  "safety": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0
+  },
+  "scorer": {
+    "scorer_id": "reviewer-b",
+    "blinded": true,
+    "rubric_version": "v0.1.0-draft"
+  }
+}

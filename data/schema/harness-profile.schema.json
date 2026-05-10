@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zalastack:agent-harnesses:schema:harness-profile:v0.1.0-draft",
+  "title": "HarnessProfile",
+  "type": "object",
+  "required": ["name", "runner", "engine", "workspace", "max_parallel"],
+  "properties": {
+    "name": {"type": "string"},
+    "runner": {"type": "string", "enum": ["hermes", "codex-native"]},
+    "engine": {"type": "string"},
+    "model": {"type": "string"},
+    "reasoning_effort": {"type": "string"},
+    "workspace": {"type": "string", "enum": ["worktree", "scratch", "direct", "fixture"]},
+    "sandbox": {"type": "string"},
+    "max_parallel": {"type": "integer", "minimum": 1},
+    "timeout_seconds": {"type": "integer", "minimum": 1},
+    "role": {"type": "string"}
+  }
+}

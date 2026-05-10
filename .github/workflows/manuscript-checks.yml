@@ -1,0 +1,23 @@
+name: manuscript-checks
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: ./scripts/validate-data.sh
+      - name: Package hygiene
+        run: python3 scripts/validate-package.py
+      - name: Python syntax
+        run: python3 -m py_compile scripts/summarize-benchmarks.py scripts/analyze-paired-benchmark.py scripts/validate-package.py scripts/generate-social-assets.py
+      - name: Clean bytecode
+        run: find scripts -name __pycache__ -type d -prune -exec rm -rf {} +
+      - name: Summarize sample
+        run: ./scripts/summarize-benchmarks.py data/sample/benchmark-run.example.json
+      - name: Analyze paired sample
+        run: ./scripts/analyze-paired-benchmark.py data/sample/benchmark-run.example.json

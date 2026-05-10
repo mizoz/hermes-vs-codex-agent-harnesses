@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Harnesses as Operational Control Systems</title>
+  <meta name="description" content="A draft white paper comparing Hermes operator-fleet and Codex-native lane running as agent harnesses.">
+  <meta property="og:title" content="Hermes vs Codex Agent Harnesses">
+  <meta property="og:description" content="A practical comparison of agent execution, memory, tooling, and verification workflows.">
+  <meta property="og:image" content="social/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hermes vs Codex Agent Harnesses">
+  <meta name="twitter:description" content="Agent harnesses as operational control systems.">
+  <meta name="twitter:image" content="social/x-1600x900.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --surface: #111827;
+      --text: #f8fafc;
+      --secondary: #cbd5e1;
+      --muted: #94a3b8;
+      --cyan: #38bdf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --border: #263244;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(rgba(17, 26, 46, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 26, 46, 0.5) 1px, transparent 1px),
+        var(--bg);
+      background-size: 32px 32px;
+      color: var(--text);
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 72px 24px 64px; }
+    header { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 44px; align-items: center; }
+    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 0.96; margin: 0 0 24px; letter-spacing: 0; }
+    p { color: var(--secondary); font-size: 18px; line-height: 1.65; margin: 0 0 18px; }
+    .eyebrow { color: var(--amber); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; margin-bottom: 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      background: var(--surface);
+      border-radius: 8px;
+      font-weight: 700;
+    }
+    a.button.primary { border-color: var(--cyan); }
+    .hero-card {
+      border: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.84);
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .hero-card img { width: 100%; display: block; border-radius: 6px; }
+    section { margin-top: 72px; }
+    h2 { font-size: 28px; margin: 0 0 18px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .item { border: 1px solid var(--border); background: rgba(17, 24, 39, 0.78); border-radius: 8px; padding: 20px; }
+    .item strong { display: block; margin-bottom: 8px; color: var(--text); }
+    .item p { font-size: 15px; line-height: 1.5; margin: 0; }
+    .assets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .assets img { width: 100%; display: block; border: 1px solid var(--border); border-radius: 8px; }
+    footer { margin-top: 72px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 880px) {
+      header, .grid, .assets { grid-template-columns: 1fr; }
+      main { padding-top: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <div class="eyebrow">Draft methodology package</div>
+        <h1>Agent Harnesses as Operational Control Systems</h1>
+        <p>A comparative study of Hermes operator-fleet and Codex-native lane running. The paper frames agent throughput as a harness, provenance, and process-control problem rather than a model-quality question alone.</p>
+        <p>This is a draft case-study and benchmark design, not a benchmark-results paper. Quantitative claims wait for paired randomized evaluation with synthetic fixtures.</p>
+        <div class="actions">
+          <a class="button primary" href="whitepaper.pdf">Download PDF</a>
+          <a class="button" href="whitepaper.html">Read HTML</a>
+          <a class="button" href="https://github.com/mizoz/hermes-vs-codex-agent-harnesses">View Repository</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="social/og-card.png" alt="Hermes vs Codex agent harness launch card with a two-lane workflow comparison diagram.">
+      </div>
+    </header>
+
+    <section>
+      <h2>Core Claim Boundary</h2>
+      <div class="grid">
+        <div class="item">
+          <strong>Case Study</strong>
+          <p>Hermes exposed clearer lane state, receipts, and operator review surfaces in the observed workflow.</p>
+        </div>
+        <div class="item">
+          <strong>Native Primitives</strong>
+          <p>Codex exposes direct execution, subagents, worktrees, tools, sandboxing, and local verification primitives.</p>
+        </div>
+        <div class="item">
+          <strong>Benchmark Next</strong>
+          <p>The proposed test is paired, randomized, anonymized, and limited to synthetic or sanitized fixtures.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Launch Assets</h2>
+      <div class="assets">
+        <img src="social/architecture-diagram.png" alt="Agent harness architecture diagram from user goal through planning, execution, verification, memory handoff, and result.">
+        <img src="social/benchmark-pipeline.png" alt="Benchmark pipeline diagram from task set through harness run, tool trace, outcome check, quality review, and metrics summary.">
+      </div>
+    </section>
+
+    <footer>
+      Author: Ahmed. Version: 0.1.0-draft. Public artifacts use synthetic fixtures and sanitized evidence-shape examples.
+    </footer>
+  </main>
+</body>
+</html>

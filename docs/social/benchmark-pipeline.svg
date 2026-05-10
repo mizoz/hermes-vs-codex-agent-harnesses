@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img">
+<title>Agent harness diagram</title>
+<rect width="100%" height="100%" fill="#0B1020"/>
+<defs>
+<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#111A2E" stroke-width="1"/></pattern>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#263244"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="url(#grid)"/>
+<style>text { font-family: Inter, Geist, Arial, sans-serif; }</style>
+<text x="80" y="86" font-size="44" font-weight="700" fill="#F8FAFC">Benchmark Pipeline</text>
+<rect x="70" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="165.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Task Set</text>
+<rect x="310" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="405.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Harness Run</text>
+<rect x="550" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="645.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Tool Trace</text>
+<rect x="790" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="885.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Outcome Check</text>
+<rect x="1030" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="1125.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Quality Review</text>
+<rect x="1270" y="290" width="190" height="92" rx="18" fill="#111827" stroke="#38BDF8" stroke-width="3"/><text x="1365.0" y="345.0" text-anchor="middle" font-size="30" font-weight="700" fill="#F8FAFC">Metrics Summary</text>
+<line x1="260" y1="336" x2="310" y2="336" stroke="#263244" stroke-width="5" marker-end="url(#arrow)"/>
+<line x1="500" y1="336" x2="550" y2="336" stroke="#263244" stroke-width="5" marker-end="url(#arrow)"/>
+<line x1="740" y1="336" x2="790" y2="336" stroke="#263244" stroke-width="5" marker-end="url(#arrow)"/>
+<line x1="980" y1="336" x2="1030" y2="336" stroke="#263244" stroke-width="5" marker-end="url(#arrow)"/>
+<line x1="1220" y1="336" x2="1270" y2="336" stroke="#263244" stroke-width="5" marker-end="url(#arrow)"/>
+<rect x="150" y="580" width="230" height="66" rx="22" fill="#111827" stroke="#34D399" stroke-width="3"/>
+<text x="265" y="623" text-anchor="middle" font-size="25" font-weight="700" fill="#F8FAFC">Completion</text>
+<rect x="410" y="580" width="230" height="66" rx="22" fill="#111827" stroke="#34D399" stroke-width="3"/>
+<text x="525" y="623" text-anchor="middle" font-size="25" font-weight="700" fill="#F8FAFC">Correctness</text>
+<rect x="670" y="580" width="230" height="66" rx="22" fill="#111827" stroke="#34D399" stroke-width="3"/>
+<text x="785" y="623" text-anchor="middle" font-size="25" font-weight="700" fill="#F8FAFC">Latency</text>
+<rect x="930" y="580" width="230" height="66" rx="22" fill="#111827" stroke="#34D399" stroke-width="3"/>
+<text x="1045" y="623" text-anchor="middle" font-size="25" font-weight="700" fill="#F8FAFC">Recovery</text>
+<rect x="1190" y="580" width="230" height="66" rx="22" fill="#111827" stroke="#34D399" stroke-width="3"/>
+<text x="1305" y="623" text-anchor="middle" font-size="25" font-weight="700" fill="#F8FAFC">Handoff Quality</text>
+<text x="80" y="806" font-size="28" fill="#94A3B8">No private data. Public-safe examples only.</text>
+</svg>

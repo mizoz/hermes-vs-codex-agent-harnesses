@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "Agent Harnesses as Operational Control Systems: A Comparative Study of Hermes Operator-Fleet and Codex-Native Lane Running"
+message: "If you use this work, please cite it as below."
+type: report
+authors:
+  - name: Ahmed
+date-released: 2026-05-10
+version: "0.1.0-draft"
+keywords:
+  - agent harnesses
+  - multi-agent systems
+  - software operations
+  - workflow orchestration
+  - reproducibility
+license: MIT

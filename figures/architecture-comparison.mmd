@@ -1,0 +1,16 @@
+flowchart LR
+  U[Human Conductor] --> HQueue[Hermes Queue tasks.json]
+  HQueue --> HProfiles[Profiles: primary runner and sidecar profiles]
+  HProfiles --> HTmux[tmux worker sessions]
+  HTmux --> HWorktree[Worktree or Scratch Workspace]
+  HWorktree --> HReceipt[final.md Receipt]
+  HReceipt --> HWatcher[Watcher / Status Synthesis]
+
+  U --> CSession[Codex Interactive Session]
+  CSession --> CSub[Native Subagents]
+  CSub --> CTools[Tools, Shell, MCP, Plugins]
+  CTools --> COut[Consolidated Response]
+
+  COut -. refactor target .-> CLane[Codex Lane Runner]
+  CLane --> CQueue[Queue + Leases + Heartbeats]
+  CQueue --> CReceipt[Schema Receipts + Provenance]

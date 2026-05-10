@@ -1,0 +1,18 @@
+title: "Agent Harnesses as Operational Control Systems"
+subtitle: "A Comparative Study of Hermes Operator-Fleet and Codex-Native Lane Running"
+author: "Ahmed"
+organization: "ZalaStack"
+version: "0.1.0-draft"
+date: "2026-05-10"
+status: "draft"
+license: "MIT"
+keywords:
+  - agent harnesses
+  - multi-agent coordination
+  - queueing theory
+  - provenance
+  - software operations
+  - human-in-the-loop control
+publication_boundary:
+  public_release_requires_explicit_approval: true
+  no_ai_byline: true
